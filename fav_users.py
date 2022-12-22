@@ -64,3 +64,5 @@ class FavUsers:
 
         except Exception as e:
            logger.error(e,exc_info=True)
+
+

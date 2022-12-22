@@ -8,7 +8,7 @@ load_dotenv()
 
 def get_code_from_email():
     mail = imaplib.IMAP4_SSL("imap.gmail.com")
-    mail.login(os.environ.get("GMAIL_EMAIL"), os.environ.get("IMAP_PASSWORD"))
+    mail.login(os.environ.get("CLAW_EMAIL"), os.environ.get("CLAW_2FA_PASSWORD_EMAIL"))
     mail.select("inbox")
     result, data = mail.search(None, "(UNSEEN)")
     assert result == "OK", "Error1 during get_code_from_email: %s" % result

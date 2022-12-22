@@ -1,6 +1,5 @@
 # importing module
-import logging,coloredlogs
-import os
+import logging
 
 # Create and configure logger
 logging.basicConfig(filename="logger.log",
@@ -11,13 +10,6 @@ logging.basicConfig(filename="logger.log",
 logger = logging.getLogger()
 
 # Setting the threshold of logger to DEBUG
-logger.setLevel(logging.DEBUG)
-
-
-coloredlogs.install(level="DEBUG",logger=logger)
-
-
-
-def delete_log_file():
-    if os.path.exists("logger.log"):
-        print("---Logger exists---")
+logger.setLevel(logging.CRITICAL)
+logger.setLevel(logging.ERROR)
+logger.setLevel(logging.INFO)

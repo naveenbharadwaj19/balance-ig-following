@@ -8,5 +8,8 @@ try:
     send_email(balance)
 
 except LoginRequired as e:
-    balance = ig.balance()
-    send_email(balance)
+    try:
+        balance = ig.balance()
+        send_email(balance)
+    except Exception as e:
+        send_email(e)

@@ -47,6 +47,7 @@ class InstaGram():
     def __manage_session(self):
         try:
             user_name = os.environ.get("USER_NAME")
+            self.cl.request_timeout = 10
             self.cl.challenge_code_handler = self.challenge_code_handler
             if not exists(self.session_file_name):
                 print(
@@ -159,6 +160,7 @@ class InstaGram():
         except LoginRequired as lr:
            logger.error(lr)
            self.__delete_session()
+           self.__manage_session()
            raise LoginRequired
             
         except Exception as e:

@@ -1,7 +1,7 @@
 
 from instagrapi import Client
 from instagrapi.mixins.challenge import ChallengeChoice
-from instagrapi.exceptions import PleaseWaitFewMinutes,LoginRequired
+from instagrapi.exceptions import PleaseWaitFewMinutes, LoginRequired
 from dotenv import load_dotenv
 from os.path import exists
 import os
@@ -67,22 +67,22 @@ class InstaGram():
                 if is_logged_out:
                     print("Logged out.Logging in...")
                     logger.info(f"LOGGED OUT.LOGGING IN AS... {user_name}")
-                    self.__delete_session()
+                    self.delete_session()
                     self.login()
                     self.cl.dump_settings(self.session_file_name)
             except Exception as e:
                 logger.error(f"STOPPED.... {e}", exc_info=True)
                 print("---STOPPED--- Further action required---")
 
-    def __delete_session(self) -> bool:
+    def delete_session(self) -> bool:
         if exists(self.session_file_name):
             os.remove(self.session_file_name)
             logger.info("Deleted session")
             return True
         return False
-            
+
     def login_required(self):
-        is_session_deleted = self.__delete_session()
+        is_session_deleted = self.delete_session()
         if is_session_deleted:
             self.__manage_session()
 
@@ -116,7 +116,7 @@ class InstaGram():
 
     def balance(self) -> str:
         try:
-          
+
             followers = self.followers()
             following = self.following()
             fav_users = FavUsers()
@@ -141,7 +141,7 @@ class InstaGram():
                         f"Setting proxy and trying again ({user_name}) will be skipped")
                     proxy = self.set_proxies()
                     logger.info(proxy)
-                    
+
                     continue
 
                 except Exception as e:
@@ -156,13 +156,13 @@ class InstaGram():
                 f"Unfollowed {no_of_unfollowed_users}: {unfollowed_users_names}")
 
             return f"Unfollowed {no_of_unfollowed_users}: {unfollowed_users_names}"
-        
+
         except LoginRequired as lr:
-           logger.error(lr)
-           self.__delete_session()
-           self.__manage_session()
-           raise LoginRequired
-            
+            logger.error(lr)
+            self.delete_session()
+            raise LoginRequired
+
         except Exception as e:
             logger.error(e, exc_info=True)
             return str(e)
+

@@ -12,4 +12,4 @@ except LoginRequired as e:
         balance = ig.balance()
         send_email(balance)
     except Exception as e:
-        send_email(e)
+        send_email(str(e))
